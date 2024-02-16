@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(168, 168, 243);
+    }
+    #main{
+        box-shadow: 10px 10px rgba(40, 40, 116, 0.986);
+        border-radius: 20px;
+        padding: 12px;
+        padding-bottom: 30px;
+        margin: 20px;
+        width: 80%;
+        background-color: rgba(86, 86, 206, 0.986);
+    }
+    #links{
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    #links a {
+        color: rgb(206, 241, 241);
+    }
+    #inputField{
+        
+        padding: 20px;
+        margin: 12px;
+        margin-bottom: 0;
+        border-radius: 50px;
+        border : 2px;
+        background-color: rgb(24, 93, 158);
+    }
+    a{
+        text-decoration: none;
+        padding: 20px;
+        margin: 12px;
+        border-radius: 50px;
+        border : 2px;
+        background-color: rgb(24, 93, 158);
+    }
+    #docButton{
+       
+        padding: 20px;
+        margin: 12px;
+        border-radius: 50px;
+        background-color: rgb(78, 135, 189);
+    }
+</style>
+<body>
+    <div id="main">
+
+    <div id="headingDiv">
+    <h1 id="heading">
+        Get Youtube Subscriber 
+    </h1>
+</div>
+<div id="pr">
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quibusdam officiis modi ratione rerum! Assumenda quas laudantium accusantium et asperiores! Odit tempora ea quidem, molestias vel consequatur consectetur? Voluptatum voluptatibus doloremque alias repellat? Voluptas.
+    </p>
+</div>
+    <div id="links" >
+        <a href="/subscribes">
+            Subscribes
+        </a>
+        <a href="/subscribers/names">
+            Subscribers/names
+        </a>
+        <input id="inputField" type="text"  placeholder="Enter _id to get details " >
+        <a  id="sId" href="/subscribes/:id">
+            Subscribes/:id
+        </a>
+    </div>
+  <a  id="docButton" href="docs">
+    Api Docs
+  </a>
+
+</div>
+</body>
+<script>
+    const inputField = document.getElementById("inputField");
+    const sId = document.getElementById("sId");
+    inputField.addEventListener('input', ()=>{
+        const id = inputField.value.trim();
+        sId.href = `/subscribes/${id}`;
+        sId.textContent = `Subscribes/${id}`;
+    })
+</script>
+</html>
