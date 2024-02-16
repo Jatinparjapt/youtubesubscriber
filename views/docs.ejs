@@ -6,6 +6,10 @@
     <title>docs</title>
 </head>
 <style>
+    img {
+        width: 200px;
+        height: 40px;
+    }
     body{
         display: flex;
         justify-content: center;
@@ -49,9 +53,19 @@
         padding: 12px;
         padding-bottom: 30px;
         margin: 20px;
-       
+        width: 80%;
         background-color: rgba(86, 86, 206, 0.986);
     }
+
+    @media only screen and (max-width: 768px) {
+  body { 
+    background-color: black;
+  }
+  #main{
+    margin: 12px;
+    width: 80%;
+  }
+}
 </style>
 <body>
     <div id="main">
@@ -65,7 +79,9 @@
         <li>Method : 'GET'</li>
         <li>Description: Retrieves a list of subscriptions</li>
         <li>Backend Access: The backend server should handle GET requests to this URL to fetch subscription data.</li>
-        <img src="https://iili.io/JEROCgt.png" alt="subs1" border="0">
+        <a href="/subscribes">
+            <img src="https://iili.io/JEROCgt.png" alt="loading..." border="0">
+        </a>
 
 
     </div>
@@ -74,7 +90,9 @@
         <li>Method : 'GET'</li>
         <li>Description: Retrieves a list of subscriber names</li>
         <li>Backend Access: The backend server should handle GET requests to this URL to fetch subscriber names.</li>
-        <img src="https://iili.io/JEROB1I.png" alt="subs2" border="0">
+        <a href="/subscribers/names">
+            <img src="https://iili.io/JEROB1I.png" alt="loading..." border="0">
+        </a>
 
     </div>
     <div class="subs2">
@@ -82,15 +100,18 @@
         <li>Method : 'GET'</li>
         <li>Description: Retrieves subscription information based on the provided ID</li>
         <li>Backend Access: The backend server should handle GET requests to this URL, replacing :id with the actual ID of the subscription to retrieve specific subscription details</li>
-        <img src="https://iili.io/JEROKsp.png" alt="subs3" border="0">
+        <a href="/"> 
+            <img src="https://iili.io/JEROKsp.png" alt="loading..." border="0">
+        </a>
+
 
     </div>
 
 </div>
 
 <div class="pr">
-    <h1 id="Summary" >Summary</>
    
+   <h1>Summary</h1>
     <p>
         This documentation outlines the URLs, HTTP methods, descriptions, and backend access instructions for each anchor tag link provided. It helps backend developers understand how to set up their server routes to handle requests to these endpoints effectively.
     </p>
