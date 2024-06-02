@@ -1,16 +1,74 @@
 const express = require("express")
 const route = express.Router()
 const susbcriberSchema = require("../models/subscribers")
-
-
+const loginUserSchema = require("../models/userSchema")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 // main route 
 route.get("/" ,  (req ,res )=>{
-        res.render("index")
+    res.render("index")
 })
 // docs route 
 route.get("/docs", (req ,res )=>{
-    res.render("docs")
+res.render("docs")
 })
+
+// LOGIN ROUTE
+route.post("/api/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      console.log(req.body);
+      if (!email && !password) {
+        res.status(404).json({ error: "Email and password are required" });
+      } else {
+        const findUser = await loginUserSchema.findOne({ email });
+        if (findUser) {
+          const matchPassword = await bcrypt.compare(password, findUser.password);
+          if (matchPassword) {
+            const tokenJwt = jwt.sign(
+              { _id: findUser._id },
+              process.env.SCREAT_KEY
+            );
+            findUser.tokens.push({ token: tokenJwt });
+            console.log(findUser.tokens);
+            await findUser.save();
+            res
+              .status(200)
+              .json({
+                Response: "User login Successfully ...",
+                token: tokenJwt,
+                name: findUser.name,
+                email: findUser.email,
+              });
+          } else {
+            return res.status(401).json({ error: "Invalid password" });
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  // Signup route
+  route.post("/api/signup", async (req, res) => {
+    try {
+      const { name, email, password } = req.body;
+      // console.log(req.body.data , req.body)
+      const findUser = await loginUserSchema.findOne({ email });
+      if (findUser) {
+        res.status(422).json({ error: "User exist" });
+      } else {
+        const user = new loginUserSchema({ name, email, password });
+        const newUserSave = await user.save();
+        if (newUserSave) {
+          res.status(201).json({ Message: "User Created Successfully" });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 //get all subscribers all details like name , subsribed channels etc
 route.get("/subscribes",async (req ,res )=>{
     try {
@@ -39,17 +97,17 @@ route.get("/subscribers/names",async  (req ,res )=>{
 // get subscriber details using id
 route.get("/subscribes/:id",  async (req ,res )=>{
     const {id} = req.params
-    // console.log(getId)
+    // console.log(id , "id")
     // handling errors using try and catch block
     try {
-        if(!id){
+        if(id === ":id"){
             // error when id not found with respone code 400
             res.status(404).send({message: "Id not found "})
-        }
+        }else{
         // get subscriber from database using _id
          const findSubscriber = await susbcriberSchema.findById({_id : id})
         res.status(200).send({'data' : findSubscriber})
-    
+        }
     } catch (error) {
         console.log(error)
     }
