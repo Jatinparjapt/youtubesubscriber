@@ -2,7 +2,7 @@ const express = require("express")
 const route = express.Router()
 const susbcriberSchema = require("../models/subscribers")
 const loginUserSchema = require("../models/userSchema")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 // main route 
 route.get("/" ,  (req ,res )=>{
